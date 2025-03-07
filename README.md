@@ -1,1 +1,75 @@
-# cs42225
+java c
+Advanced NLP: Assignment 1 
+Feature-Based Semantic Role Labeling (SRL) 
+A)   Introduction:You will conduct a feature-based machine learning classification experiment in order    to automatically label Propbank Semantic Roles (given   the   predicate).   To   accomplish   this   you   will    need   to: i)   get   acquainted   with   the   Universal   Propbank   V1.0   dataset;   ii)   pre-process   this   dataset into a workable format for   your experiment; iii)    motivate   and   extract   three   features   suitable   for   automatic   SRL,   and   iv)   train   and   evaluate   a   logistic   regression classifier for SRL as   your first   model for this course.   Please   note that this   model will be used   in   the   take-home   exam.
+B) Objectives:
+-          Gain   hands-on   experience   developing   and   running   a logistic regression classifier for   SRL following the specifications of the Universal Propbank V1.0 dataset.
+-          Gain   hands-on   experience   on identifying and motivating features (drawing   on   linguistic insight) specifically for   SRL.
+-          Gain   hands-on   experience   producing   code   that   is   ready   and   suitable   to   be   further   used   in interpretability experiments (i.e., challenge   datasets).
+C)   Logistic   Regression   model for SRL
+Imagine that you are   participating   in the shared task and   need to   build   a   Semantic   Role   Labeller. A classic SRL consists of four steps:
+1.       Predicate   identification
+2.       Predicate classification (to   be   ignore   in this   assignment)
+3. Argument identification (often taken together with step 4) 
+4. Argument classification 
+Your assignment   is to   build a system to perform. the last 2 steps of the SRL task in a single model [argument   identification + argument classification together] given the   predicate. This means you can assume you know the   predicates of each   sentence   in   advance.
+Because this   model   is going to   be used later, during   your take-home   exam,   you SHOULD NOT use   information about   predicate classification available in the dataset.   The   Universal   Propbank   dataset   includes   information that   helps disambiguate the   predicate (e.g., come.01 is   related   to      motion, come.02   is related to   pursue).   Even though the dataset   includes this   information, you should   not use this information to   inform. your features.
+D) What to   do:
+1.       If you have not done so, download and explore the structure of the   Universal Propositions Bank v1.0 English dataset (train and test) from its Git repository;
+2.       Preprocessing:    A sentence may have more than   one predicate.   To   solve   this, replicate each sentence as many times as there are predicates so each training instance has a single labeled argument structure (See   “Appendix:   SRL   task   and   data   section”   for   more   detailed   information).
+3.       Provide   a   set   of statistics   over the train and test set   including, for   each   dataset, the  number of tokens and number of sentences before and after preprocessing the datasets to deal with sentences containing multiple predicates.   (You   can   but)   You   are   not   required   to   produce   any   other   statistics.   Note   that   the   number   of tokens   you   produce   for   the test set   must   match the support   in your classification report (i.e., the   results).
+4. Motivate and extract three features (see   “   E) Requirements   for Feature Extraction”   for   more   information about this step)    for SRL classification using   Logistic   Regressions.
+5. Run one classification experiment    using Sklearn’s    LogisticRegression by   training   a   token-level SRL on the   Universal   Propositions   Bank v1.0   English dataset.
+6. Evaluate the model you    produce on the test set. You must use Scikit-learn’s Classification Report to provide       Precision, Recall and F1 measures for token-level classification.   Make   sure   to also include a labeled confusion matrix that   supports   the   classification metrics.
+7. Store your    model’s    predictions over the preprocessed testset and save it in a   human-readable text   format    (e.g.,   as   a   tsv).    Make   sure   this   file contains, at    least, the token, the gold label and the predicted label for each prediction.
+8. Prepare a ready-to-use function where one can use the   trained   model to perform SRL on standalone sentences,    given    the    predicate.    Among    other    necessary   arguments    (e.g.,   model,   etc.),   the   function   should   allow   the   input   of a sentence segmented as a list of strings   (e.g.,   [‘   Pia’   ,   ‘asked’   ,   ‘   Luis’   ,   ‘to’   ,   ‘write’   ,   ‘this’   ,   ‘sentence’   ,’   .’])   and   a   list   defining   the   location   of   the   predicate   to   label   (e.g.   [0,0,0,0,1,0,0,0],   for   the   predicate   ‘write’).   If you   think   of   another   better way   to   design   this   function,   that   is   also   acceptable,   as   long   as   it   is well documented.   Provide   an   example showing that the function runs a sentence with   more than   one   predicate   (you   can   choose   your   own   sentence(s)!). Note: this function will be important for your take-home exam.
+9. Submit one zip file containing a Jupyter notebook (and HTML printout) accompanied   by   a requirements.txt file   and any number of python modules with   helper functions.   Include   also   your model’s predictions on the testset (e.g.,   as   a   tsv). Do not upload the saved model on Canvas! Provide a link to download the model instead (e.g. needs to be a public link) –   make   sure   the   link   is   available   at   the   top   of your   notebook.   Make   sure   you   run   the   notebook   and   save   the   notebook   with   the   output   of   all   cells.   Read   more   information   about   the requirements below. 
+E)   Requirements for   Feature   Extraction:
+-          You   must   motivate   and   extract EXACTLY three features (not   more   and   not   less). There   is no such thing as   “base/core/default” features.
+- One of the features you need to motivate and extract is given (same for   everyone):   This   is a complex feature integrating: the directed dependency   path from   the   token   to   the   predicate + the   predicate’s   lemma;
+- Feature extraction       must  be self-sufficient (i.e.,       not      dependent      on      information   contained   in   the   dataset).   i.e.,   you   must   be   able   to   perform. SRL (given the   predicate) of   any    given    tokenized    sentence    (i.e.,    a    list    of   strings)    and   the    predicate    position.   You   cannot   assume   information   like   lemmas,   POS,   dependency   parse,   etc.   will   be   provided   with   the   sentence   (i.e.,      if you   use   this   information to   produce features, you must extract   it   yourself).
+-  Please note that for   training/evaluation you will need to ensure the word tokenization is the same as the one used in the dataset. This   poses   some   challenges   using SpaCy parsing (which   defaults   to   a   different   word   tokenization   to   the   one   used   in   the   shared   task).   Make sure you are able to   handle this. We will discuss this   briefly   in   class.
+-             Each   feature   must   be   motivated   and   be both useful for the task and appropriate for代 写Advanced NLP: Assignment 1 Feature-Based Semantic Role Labeling (SRL)Python
+代做程序编程语言 the model (in this case   Logistic   Regression).   Make sure you   describe   and   motivate   each   feature   in your notebook (you can use   a   markdown   cell,   or   comments   to   do   this). Making sure all features    are    suitable       is    a minimum requirement of    this assignment (nonsensical or poorly motivated features will lead to failing the assignment).
+F) Other Requirements for Jupyter   Notebook:The   Python   Notebook   should   be formatted   in a way that will substitute a written report. As   such,   it   should   be   crafted   with   care,   highlight   all   important   steps   of the   pipeline and, when   necessary,   include explaining text and   notes about decisions. Your report   must   include:
+-          A   (publically   open) link to download the trained model.   We   recommend   using google   drive to share a zip containing the model. 』 Do not upload your model on Canvas! 
+-          A printed summary of the statistics for both the training and test sets (see   above).   Make    sure    your    evaluation      (and    confusion      matrix)      matches      the      numbers      you      have   printed   in these statistics   (i.e. the total number of tokens   must   match).
+-          A section motivating and explaining the three extracted features (one   paragraph   per   feature    should    suffice).      This      paragraph      should,    for    each    feature,      motivate    why    the   feature    is    useful   for   SRL,   and   describe   both   how   they   are   extracted   and   represented   (with examples). The motivation should   be specific to   SRL.
+-          A printed example showing the three extracted    features    for    2~3    sentences    (in pre-vectorized state). This should be an excerpt   of the data   that will   later   be   fed   into   the   model after vectorization.   Make sure   no gold data   is   passed   into the   model.  Passing gold data into the model will result in failing the assignment.
+-          A       printed evaluation    table       using    Scikit Learn’s    evaluation       report, including    a labeled    confusion    matrix.   You    should   also    include   a   couple    paragraphs   discussing   these   results   (e.g.,   Are   the   results   good?   Which   semantic   roles   are   easiest   to   identify?   Which ones were most   difficult?   etc.)
+-          A    printed   example   showing   that   your function   to   perform   SRL   on   standalone   sentences   is working.
+Make   sure   the   notebook   is   sufficiently   documented.   When   in   doubt   about   authorship   or   lack   of   understanding, you may be   asked for an   interview to   explain   your   decisions/code.
+G) What   to   submit:
+Each student submits one zip file using the   predefined   naming   convention   (e.g.   A1-Student   Name.zip).
+Inside the zip you should   include:
+-          A requirements.txt with the   necessary   installation   requirements.
+-          A Python Notebook showcasing the   full   experiment.   This   should   be   submitted   both   as   a   notebook (.ipyn) and as an   HTML (.html). Make sure you save the notebook (and the HTML) after running every cell – so the outputs are also saved. You   should   be   able   to confirm this by   inspecting the   HTML.
+-            Any number of helper python modules (if   needed).
+-          The model’s predictions on the testset as   a   text   file   (e.g.,   as   a   tsv).
+H)   Grading:
+The assignment will be graded on a   Pass/Fail   basis.    And based   on the   following   requirements:
+-             Produce a   running   Python   Notebook,   including all steps (corpus preprocessing,   feature   extraction, training and evaluation) to train and evaluate a   logistic   regression   model   for      SRL; Note: make sure the code   runs and does   not depend on   any   files   that   are   not   included   with your submission (including preprocessed datasets). The only   files   your   code   can         (and should) depend on are the original   Universal   Propbank data.
+-             Motivate and extract a predefined feature: a   complex feature   integrating   the   directed   dependency   path from the token to the predicate and the   predicate’s   lemma;
+-             Motivate and extract two features (in addition to   the   predefined   one),   suitable for   SRL   and   Logistic   Regression;
+-             Produce a ready-to-use   inference function for your model which allows   the   model   to   be   tested (this used   in during   the   take-home   exam);
+Appendix: SRL task and   data
+The SRL   taskSemantic    Role   Labeling   (SRL)   can   be   handled   as   a token classification task.   Here,   given   an   input   sentence,   we   want   to   identify   its predicates, and   then for each predicate, we   want   to   identify and label its   corresponding arguments.
+Example Sentence: While   I read my assignment, the cat sleeps.
+Predicate-Argument Structure: 
+
+A dataset for   SRLWe   are   using Universal Proposition Banks 1.0,   which   is   in   CoNLL   format.   Remember   that   this   data    is labeled only for the syntactic heads (for   example,   the   argument:   “while   I   read   my   assignment”   will   only   have   a   label   for   its   syntactic-head (read) instead   of the full span. Do   note   that   the   notion   of head here   pertains   to   the   gold   dependency   parse   of the   sentence   (different   theories of grammar may choose different   heads).
+Instead of   having:
+SPAN: [                ‘while’   ,                                           ‘   I’   ,                                     ‘read’ ,                               ‘my’   ,                            ‘assignment’]
+LABELS: [’   B-AM-TMP’   ,    ’I-AM-TMP’   ,    ’I-AM-TMP’   ,    ’I-AM-TMP’   ,    ’I-AM-TMP’]
+we will   have:
+SPAN: [‘while’   ,          ‘   I’   , ‘read’ , ‘my’ , ‘assignment’] 
+LABELS: [       ’O’   ,             ’O’   ,       ’B-AM-TMP’   , ’O’ , ’O’ ]
+You will   be working with the English data.   Here   is a screenshot the data   (2 sentences):
+
+The   first   sentence   has   one   predicate   (enjoy.01),   and   the   second sentence   has three   predicates   (compare.01,   be.03, gain.02).   Beware that there can be examples without   any   predicate.Also,   note   that   the conll file   has   10   main columns. The   10th column   has a   predicate-sense label   if   the   current   token    is   a    predicate   or   a       “_”    otherwise.   The   columns   from    11th   to    nth   are   of   variable   size,   and   they   depend   on   the   number   of   predicates   a   sentence   has.   A   sentence   with   zero   predicates   has   10   columns,   a   sentence   with   3   predicates   has   13   columns,   etcetera.   The   11th    column    corresponds    to    the    argument    structure    of    the    first    predicate,    the      12th    column   corresponds to the argument structure of the second predicate,   and so   on   …For   the   two   sentences   shown   in   the   example   above,   you   have   four   predicates.   Each   of these   four    predicates    can    have    its    own      arguments.      This      means    that,    during    training,    the    second   sentence will   be seen by the model three times –   once for   each   of   its   predicates.
+
+
+
+
+         
+加QQ：99515681  WX：codinghelp  Email: 99515681@qq.com
